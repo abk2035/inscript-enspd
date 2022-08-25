@@ -1,0 +1,14 @@
+
+button{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 10px;
+ background-color: var(--base-blue);
+ color: white;
+}
+
+button:hover {
+    background-color: var(--base-background);
+    color: white;
+}

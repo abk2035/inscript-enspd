@@ -1,0 +1,11 @@
+.footer-container{
+    background-color: var(--footer-background);
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+.copyright{
+    color: #666666;
+    margin-left:60px ;
+    size: 15px;
+}

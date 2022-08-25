@@ -1,11 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+
+import Routes from './components/Routes';
+
 
 function App() {
   return (
-    <div className="App">
-      <span> sd<i className="fa fa-facebook text-white"></i> </span>
-    </div>
+    <Routes />
   );
 }
 

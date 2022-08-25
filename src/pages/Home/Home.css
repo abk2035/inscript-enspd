@@ -1,0 +1,15 @@
+.home-container{
+    min-height:90vh;
+    background-color: var(--base-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.home-container main{
+   border-radius: 15px;
+   background-color: white;
+   min-height:85vh;
+   min-width:80vw;
+}
