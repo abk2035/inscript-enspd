@@ -1,0 +1,118 @@
+.wizard-container{
+    display: flex;
+    flex-direction: column;
+    margin: 15px 50px 15px 50px;
+    padding: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.wizard-container .stepper{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background-color: white;
+}
+
+.wizard-container .stepper h3 {
+    margin-top: 15px;
+    color: var(--base-blue);
+    size : 25px;
+}
+
+.wizard-container form {
+ border: 1px solid var(--base-blue);
+ border-radius: 5px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: flex-start;
+ padding: 15px;
+}
+
+ form .buttons1{
+    display: flex;
+    justify-content: space-between;
+    width : 100%;
+    margin-top: 15px;
+}
+
+form .buttons2{
+    display: flex;
+    justify-content: flex-end;
+    width : 100%;
+    margin-top: 15px;
+}
+
+form  button{
+   border-radius: 5px ;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+}
+
+/*page-container1*/
+
+.page-container1{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 20px;
+    grid-auto-rows: minmax(80px, auto);
+}
+
+
+.page-container1 >div {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-container1 label{
+    color: var(--base-blue);
+    font-size: 20px;
+}
+
+.page-container1 input,
+.page-container1 select{
+    padding: 3px;
+    margin: 3px;
+    border: 1px solid var(--base-blue);
+    border-radius: 5px;
+}
+
+/*for  errors*/
+.error{
+    font-weight:lighter; 
+    color: red;
+    size: 5px;
+}
+
+/*page container2 */
+
+.page-container2{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 30px;
+    grid-auto-rows: minmax(80px, auto);
+}
+
+
+.page-container2 >div {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-container2 label{
+    color: var(--base-blue);
+    font-size: 20px;
+}
+
+.page-container2 input,
+.page-container2 select{
+    padding: 3px;
+    margin: 3px;
+    border: 1px solid var(--base-blue);
+    border-radius: 5px;
+}
+
+

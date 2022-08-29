@@ -1,11 +1,13 @@
 import React from 'react';
 import'./Button.css';
 
-const Button = ({ value, width, height, click }) => {
+const Button = ({ children, width, height, click }) => {
   return (
-    <button style={{width:`${width}`||'80px', height:`${height}`||'30px'}} onClick={ click() }>
-        { value }
-    </button>
+
+      <button style={{ width:`${width}`, height:`${height}` } } onClick={ click() }>
+        <div> { children } </div>
+      </button>
+    
   )
 }
 
