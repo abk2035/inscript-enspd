@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Field } from 'react-final-form';
 import Wizard from './Wizard';
+import { DBContext }from'../Routes/Context';
 
 export const required = value => { 
-                                    if(!value) return 'veuillez remplire ce champ'
-                                    else return undefined ;
-                                    };
+                         if(!value) return 'veuillez remplire ce champ'
+                         else return undefined ;
+                     };
 
  export const Error = ({ name }) => (
       <Field
@@ -16,8 +17,17 @@ export const required = value => {
       }
     />
   )
+  const region = [{"AD ":"Adamaoua"},{"CE ":"Centre"}];
+
+  export const Option = (array)=>{
+    return array.map((value,key)=>{
+       const entries = Object.entries(value)
+       return( <option key={key} value={entries[0][1]}>{entries[0][1]}</option>)
+    });
+  }
 
 const WizardPage1 = () => {
+  // const regionc = useContext(DBContext);
   return (
     <Wizard.Page>
         <div className='page-container1'>
@@ -49,7 +59,7 @@ const WizardPage1 = () => {
                     name='dateNaiss'
                     component='input'
                     type='date'
-                    placeholder='jj/MM/AA'
+                    placeholder=' jj/MM/AA'
                     validate={ required }
                 />
                 <Error name='dateNaiss' />
@@ -111,7 +121,7 @@ const WizardPage1 = () => {
             </div>
             <div>
                 <label>Pays de Nationalité :</label>
-                <Field name="nationalite" component='select' validate={ required }>
+                <Field name="nationalite" component='select' validate={ required } >
                     <option />
                     <option value="#ff0000">❤️ Red</option>
                     <option value="#00ff00">💚 Green</option>
@@ -123,7 +133,7 @@ const WizardPage1 = () => {
                 <label>Région :</label>
                 <Field name="region" component="select" validate={ required }>
                     <option />
-                    <option value="#ff0000">❤️ Red</option>
+                    { Option(region)  }  
                     <option value="#00ff00">💚 Green</option>
                     <option value="#0000ff">💙 Blue</option>
                 </Field>
@@ -156,6 +166,7 @@ const WizardPage1 = () => {
                 </div>
                 <Error name="handicape" />
             </div>
+            <div>{ console.log()}</div>
        </div>
     </Wizard.Page>
   )

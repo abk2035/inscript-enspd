@@ -45,9 +45,9 @@ const Home = () => {
 
   const handleStep = (stage) => {
     switch (stage) {
-      case 'step1' : return (<Step1/> )
+      case 'step1' : return (<Step1 click={()=>setStep('wizard')}/> )
       break ;
-      case 'wizard' : return ( <Wizard /> )
+      case 'wizard' : return ( <Wizard click={()=>setStep('download')}/> )
       break ;
       case 'download' : return (<DownloadStep />) 
       break;

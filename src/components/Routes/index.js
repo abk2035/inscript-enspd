@@ -5,15 +5,16 @@ import Home from '../../pages/Home/Home';
 import Footer from '../Footer';
 
 const index = () => {
+  
   return (
-    <Router>
-        <Header/>
-         <Routes>
-           <Route path='/'exact element={ <Home/> }/>
-           <Route path='*' element={<Navigate to ='/' replace />}/>
-         </Routes>
-         <Footer />
-    </Router>
+      <Router>
+          <Header/>
+          <Routes>
+            <Route path='/'exact element={ <Home/> }/>
+            <Route path='*' element={<Navigate to ='/' replace />}/>
+          </Routes>
+          <Footer />
+      </Router>
   )
 }
 

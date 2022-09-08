@@ -65,6 +65,7 @@ form  button{
 .page-container1 >div {
     display: flex;
     flex-direction: column;
+    min-width: 300px;
 }
 
 .page-container1 label{

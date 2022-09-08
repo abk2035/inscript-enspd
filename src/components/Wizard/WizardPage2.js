@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field } from 'react-final-form';
 import Wizard from './Wizard';
 import { Error,required } from './WizardPage1';
@@ -6,6 +6,15 @@ import { Error,required } from './WizardPage1';
 
 
 const WizardPage2= () => {
+  const [nomMere,setNomMere] = useState(false);
+
+  const requiredMere = value => { 
+    if(value) setNomMere(true);
+    else return undefined ;
+  };
+
+
+
   return (
     <Wizard.Page>
        <div className='page-container2'>
@@ -38,20 +47,19 @@ const WizardPage2= () => {
             component="input"
             type="text"
             placeholder="nom de la mère"
-            validate={ required }
+            validate={ requiredMere }
           />
-          <Error name="nomMere" />
         </div>
         <div>
           <label>Profession de la mère :</label>
           <Field
-            name="profMere"
+            name={"profMere"}
             component="input"
             type="text"
             placeholder="Profession de la mère"
             validate={ required }
           />
-          <Error name="profMere" />
+          {nomMere&&(<Error name="profMere" />)}
         </div>
         <div>
           <label>Adresse des Parents ou du Tuteur :</label>
