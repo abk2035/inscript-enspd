@@ -59,7 +59,7 @@ const WizardPage2= () => {
             placeholder="Profession de la mère"
             validate={ required }
           />
-          {nomMere&&(<Error name="profMere" />)}
+          { nomMere&&(<Error name="profMere" />) }
         </div>
         <div>
           <label>Adresse des Parents ou du Tuteur :</label>

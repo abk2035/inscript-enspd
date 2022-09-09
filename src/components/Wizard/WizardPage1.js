@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Field } from 'react-final-form';
 import Wizard from './Wizard';
-import { DBContext }from'../Routes/Context';
+import { fetchData } from '../../services/services';
 
 export const required = value => { 
                          if(!value) return 'veuillez remplire ce champ'
@@ -17,17 +17,47 @@ export const required = value => {
       }
     />
   )
-  const region = [{"AD ":"Adamaoua"},{"CE ":"Centre"}];
+  const regions = [  
+                    {"AD":"Adamaoua"},
+                    {"CE":"Centre"},
+                    {"ES":"Est"},
+                    {"EN":"Extreme Nord"},
+                    {"LT":"Littoral"},
+                    {"NO":"Nord"},
+                    {"OU":"Ouest"},
+                    {"NW":"Nord Ouest"},
+                    {"SU":"Sud"},
+                    {"SW":"Sud Ouest"},
+                ];
 
   export const Option = (array)=>{
     return array.map((value,key)=>{
        const entries = Object.entries(value)
-       return( <option key={key} value={entries[0][1]}>{entries[0][1]}</option>)
+       return( <option key={key} value={entries[0][0]}>{entries[0][1]}</option>)
     });
   }
 
 const WizardPage1 = () => {
-  // const regionc = useContext(DBContext);
+    const [nationalite,setNationalite]=useState('');
+    const [departements,setDepartements]=useState([]);
+
+    const requiredReg = (value) => { 
+        if(!value){ return 'veuillez remplire ce champ' ;
+          }else{ 
+                 fetchData('dep',value).then((res)=> setDepartements(res.data.departements));
+                return undefined ;
+               }
+               
+        
+    };
+
+    const requiredNat = value => { 
+        if(!value){ return 'veuillez remplire ce champ'
+          }else {
+            setNationalite(value);
+            return undefined ;
+        }
+    };
   return (
     <Wizard.Page>
         <div className='page-container1'>
@@ -38,7 +68,7 @@ const WizardPage1 = () => {
                     component='input'
                     type='text'
                     placeholder='nom'
-                    validate={ required}
+                    validate={ required }
                 />
                <Error name='nom' />
             </div>
@@ -121,21 +151,19 @@ const WizardPage1 = () => {
             </div>
             <div>
                 <label>Pays de Nationalité :</label>
-                <Field name="nationalite" component='select' validate={ required } >
+                <Field name="nationalite" component='select' validate={ requiredNat } >
                     <option />
-                    <option value="#ff0000">❤️ Red</option>
-                    <option value="#00ff00">💚 Green</option>
-                    <option value="#0000ff">💙 Blue</option>
+                    <option value='CAM'>Cameroun</option>
+                    <option value='ET'>Autre</option>
                 </Field>
                 <Error name="nationalite" />
            </div>
            <div>
                 <label>Région :</label>
-                <Field name="region" component="select" validate={ required }>
+                <Field name="region" component="select" validate={ requiredReg }>
                     <option />
-                    { Option(region)  }  
-                    <option value="#00ff00">💚 Green</option>
-                    <option value="#0000ff">💙 Blue</option>
+                    { nationalite == 'CAM' && Option(regions)  }  
+                    { nationalite == 'ET' && Option([{'ET':'Autre'}])  }  
                 </Field>
                 <Error name="region" />
            </div>
@@ -143,9 +171,7 @@ const WizardPage1 = () => {
                 <label>Département :</label>
                 <Field name="departement" component="select" validate={ required }>
                     <option />
-                    <option value="#ff0000">❤️ Redasdsadasdas</option>
-                    <option value="#00ff00">💚 Green</option>
-                    <option value="#0000ff">💙 Blue</option>
+                    { Option(departements) }
                 </Field>
                 <Error name="departement" />
            </div>

@@ -2,29 +2,63 @@ import React, { useState } from 'react';
 import { Field } from 'react-final-form';
 import Wizard from './Wizard';
 import { required ,Error } from './WizardPage1';
+import { Option } from './WizardPage1';
+import { fetchData } from '../../services/services';
 
+const diplomes = [
+                  {"bacc":"Baccalauréat"},
+                  {"deug":"DEUG"},
+                  {"dut":"DUT"},
+                  {"gce":"GCE Advanced Level"},
+                  {"LICSCI":"Licence Scientifique"},
+                  {"LICTECH":"Licence de Technologie"},
+                  {"bt":"Brevet de Technicien"},
+                  {"LICPRO":"Licence Professionnelle"},
+                  {"bts":"Brevet de Technicien Supérieur"},
+                  {"gceo":"GCE Ordinary Level"},
+                  {"ET":"Autre"}
+                ]
 
 const WizardPage3= () => {
      const [niveau,setNiveau] = useState('L1');
-      const requiredLevel = value => { 
+     const [filieres,setFilieres] = useState([]);
+     const [series,setSeries] = useState([]);
+
+     const requiredLevel = value => { 
+          if(!value) return 'veuillez remplire ce champ'
+          else {
+            if(value === 'L3') setNiveau('L3');
+            if(value === 'L1') setNiveau('L1');
+            if(value === 'M1') setNiveau('M1');
+            return undefined ;
+          };
+      }
+
+      
+     const requiredCursus = value => { 
         if(!value) return 'veuillez remplire ce champ'
         else {
-          if(value === 'L3') setNiveau('L3');
-          if(value === 'L1') setNiveau('L1');
+          fetchData('fil',value).then((res)=> setFilieres(res.data.filieres));
           return undefined ;
         };
-      }
+     }
+
+     const requiredDip = value => { 
+        if(!value) return 'veuillez remplire ce champ'
+        else {
+          fetchData('ser',value).then((res)=> setSeries(res.data.series));
+          return undefined ;
+        };
+     }
 
   return (
     <Wizard.Page>
        <div className='page-container1'>
          <div>
           <label>Diplome d'admission :</label>
-          <Field name="diplome" component="select" validate={ required }>
+          <Field name="diplome" component="select" validate={ requiredDip }>
                     <option />
-                    <option value="#ff0000">❤️ Redasdsadasdas</option>
-                    <option value="#00ff00">💚 Green</option>
-                    <option value="#0000ff">💙 Blue</option>
+                    { Option(diplomes) }
           </Field>
           <Error name="diplome" />
         </div>
@@ -45,9 +79,8 @@ const WizardPage3= () => {
           <label>Lieu d'obtention :</label>
           <Field name="lieu" component="select" validate={ required }>
                     <option />
-                    <option value="#ff0000">❤️ Redasdsadasdas</option>
-                    <option value="#00ff00">💚 Green</option>
-                    <option value="#0000ff">💙 Blue</option>
+                    <option value="Office du Baccalaureat">Office du Baccalaureat</option>
+                    <option value="MINESUP">MINESUP</option>
           </Field>
           <Error name="lieu" />
         </div>
@@ -55,9 +88,7 @@ const WizardPage3= () => {
           <label>Série :</label>
           <Field name="serie" component="select" validate={ required }>
                     <option />
-                    <option value="#ff0000">❤️ Redasdsadasdas</option>
-                    <option value="#00ff00">💚 Green</option>
-                    <option value="#0000ff">💙 Blue</option>
+                    { Option(series) }
           </Field>
           <Error name="serie" />
         </div>
@@ -79,15 +110,17 @@ const WizardPage3= () => {
           <label>Mention :</label>
           <Field name="mention" component="select" validate={ required }>
                     <option />
-                    <option value="#ff0000">❤️ Redasdsadasdas</option>
-                    <option value="#00ff00">💚 Green</option>
-                    <option value="#0000ff">💙 Blue</option>
+                    <option value="Passable">Passable</option>
+                    <option value="Assez Bien">Assez Bien</option>
+                    <option value="Bien">Bien</option>
+                    <option value="Très Bien">Très Bien</option>
+                    <option value="Excellent">Excellent</option>
           </Field>
           <Error name="mention" />
         </div>
         <div>
           <label>Cursus :</label>
-          <Field name="cursus" component="select" validate={ required }>
+          <Field name="cursus" component="select" validate={ requiredCursus }>
                     <option />
                     <option value="ING">Ingenieur</option>
                     <option value="SING">Science de l'Ingenieur</option>
@@ -102,17 +135,16 @@ const WizardPage3= () => {
                     <option />
                     <option default value="L1"> Niveau I</option>
                     <option value="L3">Niveau III</option>
+                    <option value="M1">Master I</option>
           </Field>
           <Error name="niveau" />
         </div>
         <div>
-          { niveau === 'L3' && (<label> Filière :</label>) }
+          { ( niveau === 'L3'|| niveau === 'M1') && (<label> Filière :</label>) }
           { niveau === 'L1' && (<label> Filière Souhaitée au Niveau 3 :</label>) }
           <Field name="filiere" component="select" validate={ required } >
                     <option />
-                    <option value="#ff0000">❤️ Redasdsadasdas</option>
-                    <option value="#00ff00">💚 Green</option>
-                    <option value="#0000ff">💙 Blue</option>
+                    { Option(filieres) }
           </Field>
           <Error name="filiere" />
         </div>
