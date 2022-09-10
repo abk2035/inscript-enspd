@@ -11,7 +11,7 @@ class Wizard extends React.Component {
       }
 
      static Page = ({ children }) => children
-
+    
      constructor( props ) {
         super( props )
         this.state = {
@@ -23,6 +23,8 @@ class Wizard extends React.Component {
         this.setState(state => ({
            page: Math.max(state.page - 1, 0)
         }));
+
+        
 
       next = values =>
             this.setState(state => ({
@@ -45,7 +47,7 @@ class Wizard extends React.Component {
 
 
       handleSubmit = values => {
-            const { children, onSubmit } = this.props
+            const { children, onSubmit ,} = this.props
             const { page } = this.state
             const isLastPage = page === React.Children.count(children) - 1
             if (isLastPage) {
@@ -94,12 +96,12 @@ class Wizard extends React.Component {
                                 )}
                                 {!isLastPage && <button type='submit'>Next »</button>}
                                 {isLastPage && (
-                                  <button type='submit' disabled={ submitting }>
+                                  <button type='submit' disabled={ submitting } >
                                     Submit
                                   </button>
                                 )}
                             </div> 
-                        <pre>{/*JSON.stringify(values, 0, 2)*/}</pre>
+                        <pre>{JSON.stringify(values, 0, 2)}</pre>
                      </form>
                   </div>
                 )}

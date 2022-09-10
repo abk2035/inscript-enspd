@@ -56,16 +56,16 @@ const WizardPage3= () => {
        <div className='page-container1'>
          <div>
           <label>Diplome d'admission :</label>
-          <Field name="diplome" component="select" validate={ requiredDip }>
+          <Field name="codeDip" component="select" validate={ requiredDip }>
                     <option />
                     { Option(diplomes) }
           </Field>
-          <Error name="diplome" />
+          <Error name="codeDip" />
         </div>
         <div>
           <label>Annee d'obtention :</label>
           <Field
-                   name='annee'
+                   name='anneeDip'
                    component='input'
                    type='number'
                    placeholder='AAAA'
@@ -73,24 +73,24 @@ const WizardPage3= () => {
                    min='2000'
                    validate={ required }
                 />
-          <Error name="annee" />
+          <Error name="anneeDip" />
         </div>
         <div>
           <label>Lieu d'obtention :</label>
-          <Field name="lieu" component="select" validate={ required }>
+          <Field name="lieuDip" component="select" validate={ required }>
                     <option />
                     <option value="Office du Baccalaureat">Office du Baccalaureat</option>
                     <option value="MINESUP">MINESUP</option>
           </Field>
-          <Error name="lieu" />
+          <Error name="lieuDip" />
         </div>
         <div>
           <label>Série :</label>
-          <Field name="serie" component="select" validate={ required }>
+          <Field name="codeSerie" component="select" validate={ required }>
                     <option />
                     { Option(series) }
           </Field>
-          <Error name="serie" />
+          <Error name="codeSerie" />
         </div>
         <div>
            <label>Moyenne :</label>
@@ -120,14 +120,14 @@ const WizardPage3= () => {
         </div>
         <div>
           <label>Cursus :</label>
-          <Field name="cursus" component="select" validate={ requiredCursus }>
+          <Field name="codeCursus" component="select" validate={ requiredCursus }>
                     <option />
                     <option value="ING">Ingenieur</option>
                     <option value="SING">Science de l'Ingenieur</option>
                     <option value="MAPRO">Master Professionnel</option>
                     <option value="M2R">Master Recherche</option>
           </Field>
-          <Error name="cursus" />
+          <Error name="codeCursus" />
         </div>
         <div>
           <label>Niveau :</label>
@@ -142,11 +142,11 @@ const WizardPage3= () => {
         <div>
           { ( niveau === 'L3'|| niveau === 'M1') && (<label> Filière :</label>) }
           { niveau === 'L1' && (<label> Filière Souhaitée au Niveau 3 :</label>) }
-          <Field name="filiere" component="select" validate={ required } >
+          <Field name="codeFiliere" component="select" validate={ required } >
                     <option />
                     { Option(filieres) }
           </Field>
-          <Error name="filiere" />
+          <Error name="codeFiliere" />
         </div>
       </div>
     </Wizard.Page>

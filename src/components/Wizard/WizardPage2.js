@@ -76,18 +76,18 @@ const WizardPage2= () => {
                 <label className='me-2'>Parent(s) Handicapé(s) ? :</label>
                 <div >
                     <label className='me-2 '>
-                        <Field name="parentHandicape" component="input" type="radio" value="oui" validate={ required }/>
+                        <Field name="parentH" component="input" type="radio" value="true" validate={ required }/>
                         {' '}
                         Oui
                         
                     </label>
                     <label>
-                        <Field name="parentHandicape" component="input" type="radio" value="non" validate={ required }/>
+                        <Field name="parentH" component="input" type="radio" value="false" validate={ required }/>
                         {' '}
                         Non
                     </label>
                 </div>
-                <Error name="parentHandicape" />
+                <Error name="parentH" />
             </div>
       </div>
     </Wizard.Page>

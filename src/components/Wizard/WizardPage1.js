@@ -38,8 +38,8 @@ export const required = value => {
   }
 
 const WizardPage1 = () => {
-    const [nationalite,setNationalite]=useState('');
-    const [departements,setDepartements]=useState([]);
+    const [nationalite,setNationalite] = useState('');
+    const [departements,setDepartements] = useState([]);
 
     const requiredReg = (value) => { 
         if(!value){ return 'veuillez remplire ce champ' ;
@@ -49,7 +49,7 @@ const WizardPage1 = () => {
                }
                
         
-    };
+    }
 
     const requiredNat = value => { 
         if(!value){ return 'veuillez remplire ce champ'
@@ -57,7 +57,7 @@ const WizardPage1 = () => {
             setNationalite(value);
             return undefined ;
         }
-    };
+    }
   return (
     <Wizard.Page>
         <div className='page-container1'>
@@ -89,6 +89,7 @@ const WizardPage1 = () => {
                     name='dateNaiss'
                     component='input'
                     type='date'
+                    max='2009-01-01'
                     placeholder=' jj/MM/AA'
                     validate={ required }
                 />
@@ -153,8 +154,8 @@ const WizardPage1 = () => {
                 <label>Pays de Nationalité :</label>
                 <Field name="nationalite" component='select' validate={ requiredNat } >
                     <option />
-                    <option value='CAM'>Cameroun</option>
-                    <option value='ET'>Autre</option>
+                    <option value='Cameroun'>Cameroun</option>
+                    <option value='Autre'>Autre</option>
                 </Field>
                 <Error name="nationalite" />
            </div>
@@ -162,30 +163,30 @@ const WizardPage1 = () => {
                 <label>Région :</label>
                 <Field name="region" component="select" validate={ requiredReg }>
                     <option />
-                    { nationalite == 'CAM' && Option(regions)  }  
-                    { nationalite == 'ET' && Option([{'ET':'Autre'}])  }  
+                    { nationalite === 'Cameroun' && Option(regions)  }  
+                    { nationalite === 'Autre' && Option([{'ET':'Autre'}])  }  
                 </Field>
                 <Error name="region" />
            </div>
            <div>
                 <label>Département :</label>
-                <Field name="departement" component="select" validate={ required }>
+                <Field name="codeDepart" component="select" validate={ required }>
                     <option />
                     { Option(departements) }
                 </Field>
-                <Error name="departement" />
+                <Error name="codeDepart" />
            </div>
            <div className='d-flex flex-row ' >
                 <label className='me-2'>Handicapé ? :</label>
                 <div >
                     <label className='me-2 '>
-                        <Field name="handicape" component="input" type="radio" value="oui" validate={ required }/>
+                        <Field name="handicape" component="input" type="radio" value="true" validate={ required }/>
                         {' '}
                         Oui
                         
                     </label>
                     <label>
-                        <Field name="handicape" component="input" type="radio" value="non" validate={ required }/>
+                        <Field name="handicape" component="input" type="radio" value="false" validate={ required }/>
                         {' '}
                         Non
                     </label>
