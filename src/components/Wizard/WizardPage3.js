@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Field } from 'react-final-form';
 import Wizard from './Wizard';
-import { required ,Error } from './WizardPage1';
-import { Option } from './WizardPage1';
+import { required } from '../../Utils';
+import Option from '../Form/Option';
 import { fetchData } from '../../services/services';
+import Error from '../Form/Error';
 
 const diplomes = [
                   {"bacc":"Baccalauréat"},
@@ -69,8 +70,8 @@ const WizardPage3= () => {
                    component='input'
                    type='number'
                    placeholder='AAAA'
-                   max='2017' 
-                   min='2000'
+                   max='2022' 
+                   min='1996'
                    validate={ required }
                 />
           <Error name="anneeDip" />

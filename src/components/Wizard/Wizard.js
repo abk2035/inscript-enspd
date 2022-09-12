@@ -38,7 +38,6 @@ class Wizard extends React.Component {
          */
         
       validate = values => {
-        console.log('validate');
              const activePage = React.Children.toArray(this.props.children)[
                 this.state.page
               ]

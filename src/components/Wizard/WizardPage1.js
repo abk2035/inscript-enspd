@@ -2,21 +2,12 @@ import React, { useState } from 'react';
 import { Field } from 'react-final-form';
 import Wizard from './Wizard';
 import { fetchData } from '../../services/services';
+import  Error    from '../Form/Error';
+import Option from '../Form/Option';
+import { required } from '../../Utils' 
 
-export const required = value => { 
-                         if(!value) return 'veuillez remplire ce champ'
-                         else return undefined ;
-                     };
 
- export const Error = ({ name }) => (
-      <Field
-       name={name}
-       subscription={{ touched: true, error: true }}
-       render={({ meta: { touched, error } }) =>
-       touched && error ? <span className='error'>{ error }</span> : null
-      }
-    />
-  )
+
   const regions = [  
                     {"AD":"Adamaoua"},
                     {"CE":"Centre"},
@@ -30,12 +21,6 @@ export const required = value => {
                     {"SW":"Sud Ouest"},
                 ];
 
-  export const Option = (array)=>{
-    return array.map((value,key)=>{
-       const entries = Object.entries(value)
-       return( <option key={key} value={entries[0][0]}>{entries[0][1]}</option>)
-    });
-  }
 
 const WizardPage1 = () => {
     const [nationalite,setNationalite] = useState('');
@@ -89,7 +74,7 @@ const WizardPage1 = () => {
                     name='dateNaiss'
                     component='input'
                     type='date'
-                    max='2009-01-01'
+                    max='2010-01-01'
                     placeholder=' jj/MM/AA'
                     validate={ required }
                 />
