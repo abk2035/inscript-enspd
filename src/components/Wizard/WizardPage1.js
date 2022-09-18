@@ -31,9 +31,7 @@ const WizardPage1 = () => {
           }else{ 
                  fetchData('dep',value).then((res)=> setDepartements(res.data.departements));
                 return undefined ;
-               }
-               
-        
+               }    
     }
 
     const requiredNat = value => { 

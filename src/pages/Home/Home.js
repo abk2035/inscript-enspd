@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Home.css';
 import Wizard from '../../components/Wizard';
+import { download } from '../../services/services';
 
 
 const Step1 = ({ click }) => {
@@ -21,7 +22,9 @@ const Step1 = ({ click }) => {
   )
 }
 
-const DownloadStep = ({ click }) => {
+const DownloadStep = ({  click }) => {
+ 
+  
   return (
     <div className='step-container'>
        <h2>ENREGISTREMENT TERMINEE</h2>
@@ -41,13 +44,32 @@ const DownloadStep = ({ click }) => {
 
 
 const Home = () => {
-   const [step, setStep]= useState('step1');
+  const [step, setStep] = useState('step1');
+  const [uid, setUid] = useState(1);
+  const [loader,setLoader] = useState(false)
+
+  const downloadFile =(id) => {
+    download(id).then((res)=> console.log(res.data))
+ }
+
+  const handleUid = (id) =>{
+     setUid(id) ;
+     setStep('download');
+   }
+
+ const sleep = ( fn ,ms=3000) => {
+      setLoader(true);
+      setTimeout(()=>{ 
+        setLoader(false);
+        fn();
+       },ms)
+ }
 
   const handleStep = (stage) => {
     switch (stage) {
-      case 'step1' : return (<Step1 click={()=>setStep('wizard')}/> )
-      case 'wizard' : return ( <Wizard click={() => setStep('download')}/> )
-      case 'download' : return (<DownloadStep />) 
+      case 'step1' : return (<Step1 click={ () => sleep(() => setStep('wizard')) }/> )
+      case 'wizard' : return ( <Wizard click={(id) => sleep(() => handleUid(id) ) }/> )
+      case 'download' : return (<DownloadStep click={ ()=> sleep (()=>downloadFile(uid),15000) } />) 
       default :
     }
   }
@@ -57,7 +79,17 @@ const Home = () => {
     <div className='home-container'>
        <main>
        
-        { handleStep(step) }
+        { handleStep("download") }
+        
+         {loader &&
+          (
+          <div id="loader">
+              <div className="spinner-border text-primary "  role="status">
+                <span className="sr-only"></span>
+              </div>
+              <span>loading...</span>
+            </div>
+           )}
       
        </main>
     </div>

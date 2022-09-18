@@ -7,12 +7,12 @@ import { register } from '../../services/services';
 
 //const sleep = (ms,fn) => new Promise(resolve => setTimeout(fn, ms))
 const i =  {
-  "nom": "test5",
+  "nom": "test10",
   "prenom": "test1234",
   "dateNaiss": "2009-12-04",
   "lieuNaiss": "garoua kayley",
   "email": "test5@test.com",
-  "telephone": "692562630",
+  "telephone": "692562640",
   "quartier": "yassa",
   "nationalite": "Cameroun",
   "region": "AD",
@@ -23,12 +23,19 @@ const i =  {
   "nomMere": "course",
   "profMere": "courseurse",
   "adresseParents": "djerem",
-  "parentH": "false" } ;
+  "parentH": "false",
+  "codeDip":"bacc",
+  "lieuDip":"Office du Baccalaureat",
+  "niveau":"L3",
+  "codeSerie":"c",
+  "codeCursus":"ING"
+ } ;
 
 const index = ({ click }) => {
   const onSubmit = async values => {
-        window.alert(JSON.stringify(values, 0, 2))
-        register(values).then((res) => { console.log(res.data); click() }) 
+       let[res,err] = await register(values);
+       if(err) console.log(err);
+       if(res) click(res.uid);;
       }
 
   return (

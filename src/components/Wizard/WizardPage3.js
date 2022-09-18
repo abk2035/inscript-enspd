@@ -39,7 +39,7 @@ const WizardPage3= () => {
      const requiredCursus = value => { 
         if(!value) return 'veuillez remplire ce champ'
         else {
-          fetchData('fil',value).then((res)=> setFilieres(res.data.filieres));
+          fetchData('fil',value).then((res) => { setFilieres(res.data.filieres) });
           return undefined ;
         };
      }
@@ -80,8 +80,10 @@ const WizardPage3= () => {
           <label>Lieu d'obtention :</label>
           <Field name="lieuDip" component="select" validate={ required }>
                     <option />
-                    <option value="Office du Baccalaureat">Office du Baccalaureat</option>
+                    <option value="OBC">Office du Baccalaureat</option>
                     <option value="MINESUP">MINESUP</option>
+                    <option value="GCE Board">GCE Board</option>
+                    <option value="Autre">Autre</option>
           </Field>
           <Error name="lieuDip" />
         </div>

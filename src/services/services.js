@@ -1,11 +1,11 @@
 import axios from 'axios';
-const URL = 'http://localhost:80/enspd-inscript-api/';
+const URL = 'http://localhost:80/inscript-enspd/api/';
 
 
  // service for register students
  export const register = async (data) => {
-           try{
-                     return   axios (URL,
+        let res , err = null ;
+                           await axios (URL,
                                         {
                                           method : 'POST',
                                           headers:{
@@ -14,26 +14,41 @@ const URL = 'http://localhost:80/enspd-inscript-api/';
                                                   },
                                           data ,
                                           params : { route: 'register' }
-                                        })
-            }catch(err){ 
-             console.log(err);
-          }   
+                                        }).then(result => { res = result.data})
+                                          .catch(error => { err = error })
+          return [res,err] ;
+         
 }
 
  // service to fetch data from database
 export const fetchData = ( payload,keyword) => {
-  
-                return axios( URL,
-                                {
-                                  method : 'GET',
-                                  headers:{
-                                      'Accept': 'application/json',
-                                      'Content-Type': 'application/json'
-                                      },
-                                  params: {
-                                        route: 'data',
-                                        payload,
-                                        keyword,
-                                      }
-                               })                
+  return axios( URL,
+       {method : 'GET',
+        headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                 },
+        params: {
+                route: 'data',
+                payload,
+                keyword,
+               }
+          })                
       }
+  
+  // service to download pdf file ;
+export const download =  ( uid ) =>{
+            return axios( URL,
+              {
+                method : 'GET',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                params: {
+                      route: 'download',
+                      uid
+                    }
+            })  
+   
+}
