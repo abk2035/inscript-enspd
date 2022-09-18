@@ -12,7 +12,7 @@ const Step1 = ({ click }) => {
           <div className='step-message'>
             <img src='./image/attention.png' alt='attention'/>
             <div className='step-text'>
-               L'inscription administrative ici concerne uniquement <br/>les  nouveaux étudiants entrant des niveaux I et III.
+               L'inscription administrative ici concerne uniquement <br/>les  nouveaux étudiants entrant des niveaux I , III et MASTER.
               <br/> Veuillez lire et remplire attentivement les champs 
             </div>
          </div>
@@ -45,11 +45,13 @@ const DownloadStep = ({  click }) => {
 
 const Home = () => {
   const [step, setStep] = useState('step1');
-  const [uid, setUid] = useState(1);
+  const [uid, setUid] = useState(11);
   const [loader,setLoader] = useState(false)
 
   const downloadFile =(id) => {
-    download(id).then((res)=> console.log(res.data))
+    download(id).then((res)=> console.log(res.data));
+    setLoader(true);
+    setTimeout(()=>{ setLoader(false); }, 25000)
  }
 
   const handleUid = (id) =>{
@@ -69,7 +71,7 @@ const Home = () => {
     switch (stage) {
       case 'step1' : return (<Step1 click={ () => sleep(() => setStep('wizard')) }/> )
       case 'wizard' : return ( <Wizard click={(id) => sleep(() => handleUid(id) ) }/> )
-      case 'download' : return (<DownloadStep click={ ()=> sleep (()=>downloadFile(uid),15000) } />) 
+      case 'download' : return (<DownloadStep click={ () => downloadFile(uid) } />) 
       default :
     }
   }
@@ -79,7 +81,7 @@ const Home = () => {
     <div className='home-container'>
        <main>
        
-        { handleStep("download") }
+        { handleStep(step) }
         
          {loader &&
           (

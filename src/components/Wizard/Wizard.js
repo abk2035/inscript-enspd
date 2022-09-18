@@ -15,7 +15,7 @@ class Wizard extends React.Component {
      constructor( props ) {
         super( props )
         this.state = {
-                page: 2,
+                page: 0,
                 values: props.initialValues || {}
         }
       }
@@ -82,6 +82,7 @@ class Wizard extends React.Component {
                         completeColor='#666666'
                         titleTop={ 4 }
                         activeTitleColor='#C2B45F'
+                        lineMarginOffset={20}
                         />
                        <h3>{ steps[page] }</h3>
                      </div>
@@ -100,7 +101,7 @@ class Wizard extends React.Component {
                                   </button>
                                 )}
                             </div> 
-                        <pre>{JSON.stringify(values, 0, 2)}</pre>
+                        {/*<pre>{JSON.stringify(values, 0, 2)}</pre>*/}
                      </form>
                   </div>
                 )}

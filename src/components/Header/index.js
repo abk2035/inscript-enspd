@@ -16,11 +16,11 @@ const Header = () => {
             </li>
          </ul>
          <ul className='ul2'>
-            <li><a href='#ddf'><img src='./image/facebook.png' alt='fac'/></a></li>
-            <li><a href='#sdd'><img src='./image/twitter.png' alt='twi'/></a></li>
-            <li><a href='#sd'><img src='./image/google-plus.png' alt='goo'/></a></li>
-            <li><a href='#sdf'><img src='./image/instagram.png' alt='inst'/></a></li>
-            <li><a href='#dffsd'><img src='./image/linkedin.png' alt='link'/></a></li>
+            <li><a href='#f'><img src='./image/facebook.png' alt='fac'/></a></li>
+            <li><a href='#t'><img src='./image/twitter.png' alt='twi'/></a></li>
+            <li><a href='#g'><img src='./image/google-plus.png' alt='goo'/></a></li>
+            <li><a href='#i'><img src='./image/instagram.png' alt='inst'/></a></li>
+            <li><a href='#l'><img src='./image/linkedin.png' alt='link'/></a></li>
          </ul>
        </div>
        <nav className='nav-bar'>

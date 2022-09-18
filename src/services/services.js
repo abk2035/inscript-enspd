@@ -1,5 +1,6 @@
 import axios from 'axios';
-const URL = 'http://localhost:80/inscript-enspd/api/';
+//const URL = 'http://localhost:80/inscript-enspd/api/';
+const URL = 'http://inscript-enspd.local/api/';
 
 
  // service for register students

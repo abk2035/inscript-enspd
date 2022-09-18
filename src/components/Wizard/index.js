@@ -6,30 +6,7 @@ import'./Wizard.css';
 import { register } from '../../services/services';
 
 //const sleep = (ms,fn) => new Promise(resolve => setTimeout(fn, ms))
-const i =  {
-  "nom": "test10",
-  "prenom": "test1234",
-  "dateNaiss": "2009-12-04",
-  "lieuNaiss": "garoua kayley",
-  "email": "test5@test.com",
-  "telephone": "692562640",
-  "quartier": "yassa",
-  "nationalite": "Cameroun",
-  "region": "AD",
-  "codeDepart": "FARD",
-  "handicape": "true",
-  "nomPere": "cours",
-  "profPere": "testeur",
-  "nomMere": "course",
-  "profMere": "courseurse",
-  "adresseParents": "djerem",
-  "parentH": "false",
-  "codeDip":"bacc",
-  "lieuDip":"Office du Baccalaureat",
-  "niveau":"L3",
-  "codeSerie":"c",
-  "codeCursus":"ING"
- } ;
+
 
 const index = ({ click }) => {
   const onSubmit = async values => {
@@ -40,7 +17,7 @@ const index = ({ click }) => {
 
   return (
     <Wizard
-        initialValues={i}
+        initialValues={{}}
         onSubmit={ onSubmit }
         > 
         <WizardPage1/>
