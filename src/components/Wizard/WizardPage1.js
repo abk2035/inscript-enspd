@@ -27,7 +27,7 @@ const WizardPage1 = () => {
     const [departements,setDepartements] = useState([]);
 
     const requiredReg = (value) => { 
-        if(!value){ return 'veuillez remplire ce champ' ;
+        if(!value){ return 'veuillez remplir ce champ' ;
           }else{ 
                  fetchData('dep',value).then((res)=> setDepartements(res.data.departements));
                 return undefined ;
@@ -35,7 +35,7 @@ const WizardPage1 = () => {
     }
 
     const requiredNat = value => { 
-        if(!value){ return 'veuillez remplire ce champ'
+        if(!value){ return 'veuillez remplir ce champ'
           }else {
             setNationalite(value);
             return undefined ;

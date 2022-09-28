@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Home.css';
 import Wizard from '../../components/Wizard';
-import { download } from '../../services/services';
+import { register } from '../../services/services';
 
 
 const Step1 = ({ click }) => {
@@ -42,21 +42,110 @@ const DownloadStep = ({  click }) => {
   )
 }
 
+const Log = ({ click1, click2 }) => {
+  const[num,setNum] = useState('');
+  const[errorNum, setErrorNum] = useState(false);
+  const[error,setError] = useState(false);
+  const[form,setForm] = useState('form1');
+
+  const validate1 = async (e) =>{
+      e.preventDefault();
+      console.log('validate1....: '+num)
+      if(!num){
+        setError(true);
+      }else{
+         let[res,err] = await register(num);
+         if(err) console.log(err);
+         if(res){
+          if(res.error) setErrorNum(true);
+          else {
+            click1(res.uid);
+          }
+         }
+      }
+    }
+
+    const validate2 = async (e) =>{
+      e.preventDefault();
+      console.log('validate2....: '+num)
+      if(!num){
+        setError(true);
+      }else{
+         let[res,err] = await register(num);
+         if(err) console.log(err);
+         if(res){
+          if(res.error) setErrorNum(true);
+          else {
+            console.log(res.etudiant)
+            click2(res.etudiant);
+          }
+         }
+      }
+    }
+
+
+  return(
+    <div className='log-content'>
+        <div>
+          {form ==='form1'&&
+          (<form action="" onSubmit={ validate1 }>
+            <div>
+               <label>N<sup>o</sup> d'enregistrement</label>
+               <input type='text' name='numInsc' id='num' 
+                 onChange={(e) => setNum(e.target.value)} 
+                 onFocus={() => { setError(false); setErrorNum(false) }}/>
+               <div className={error ? 'text-danger':'d-none'}>
+                veuillez entrer un numero
+               </div>
+               <div className={errorNum ? 'text-danger':'d-none'}>
+                 numero inconnu
+               </div>
+               <p className='' onClick={()=>setForm('form2')}>je veux modifier mes informations</p>
+            </div>
+            <input type='submit' value="s'inscrire" />
+          </form>)}
+          {form ==='form2'&&
+           (<form action="" onSubmit={ validate2 }>
+                <div>
+                  <label>N<sup>o</sup> d'enregistrement</label>
+                  <input type='text' name='numInsc' id='num' 
+                  onChange={(e)=>setNum(e.target.value)} 
+                  onFocus={() => { setError(false); setErrorNum(false) }}/>
+                  <div className={error ? 'text-danger':'d-none'}>
+                    veuillez entrer un numero
+                  </div>
+                  <div className={errorNum ? 'text-danger':'d-none'}>
+                    numero inconnu
+                  </div>
+                  <p className='cursor-pointer' onClick={()=>setForm('form1')}>je veux m'inscrire</p>
+                </div>
+                <input type='submit' value="modifier" />
+           </form>)}
+        </div>
+    </div>
+  )
+}
+
 
 const Home = () => {
-  const [step, setStep] = useState('step1');
+  const [step, setStep] = useState('log');
   const [uid, setUid] = useState(11);
-  const [loader,setLoader] = useState(false)
+  const [loader,setLoader] = useState(false);
+  const [initialValues,setInitialValues]=useState({});
 
   const downloadFile =(id) => {
-    download(id).then((res)=> console.log(res.data));
-    setLoader(true);
-    setTimeout(()=>{ setLoader(false); }, 25000)
+    window.open('http://localhost:80/inscript-enspd/api/tcpdf/index.php?uid='+id,'_blank')
  }
 
   const handleUid = (id) =>{
      setUid(id) ;
+     console.log("ha...: "+id)
      setStep('download');
+   }
+
+   const handleUpdate= (data) => {
+       setInitialValues(data)
+       setStep('wizard');
    }
 
  const sleep = ( fn ,ms=3000) => {
@@ -70,8 +159,12 @@ const Home = () => {
   const handleStep = (stage) => {
     switch (stage) {
       case 'step1' : return (<Step1 click={ () => sleep(() => setStep('wizard')) }/> )
-      case 'wizard' : return ( <Wizard click={(id) => sleep(() => handleUid(id) ) }/> )
-      case 'download' : return (<DownloadStep click={ () => downloadFile(uid) } />) 
+      case 'wizard' : return ( <Wizard click={(id) => sleep(() => handleUid(id) )}  values={initialValues}/> )
+      case 'download' : return (<DownloadStep click={()=>sleep( () => downloadFile(uid) )} />)
+      case 'log':return(<Log 
+                         click1={(id) => sleep(() => handleUid(id))}
+                         click2={(data) => sleep( () => handleUpdate(data))}/>
+                        ) 
       default :
     }
   }

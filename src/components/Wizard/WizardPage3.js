@@ -26,7 +26,7 @@ const WizardPage3= () => {
      const [series,setSeries] = useState([]);
 
      const requiredLevel = value => { 
-          if(!value) return 'veuillez remplire ce champ'
+          if(!value) return 'veuillez remplir ce champ'
           else {
             if(value === 'L3') setNiveau('L3');
             if(value === 'L1') setNiveau('L1');
@@ -37,7 +37,7 @@ const WizardPage3= () => {
 
       
      const requiredCursus = value => { 
-        if(!value) return 'veuillez remplire ce champ'
+        if(!value) return 'veuillez remplir ce champ'
         else {
           fetchData('fil',value).then((res) => { setFilieres(res.data.filieres) });
           return undefined ;
@@ -45,7 +45,7 @@ const WizardPage3= () => {
      }
 
      const requiredDip = value => { 
-        if(!value) return 'veuillez remplire ce champ'
+        if(!value) return 'veuillez remplir ce champ'
         else {
           fetchData('ser',value).then((res)=> setSeries(res.data.series));
           return undefined ;
