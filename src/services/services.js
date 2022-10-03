@@ -22,7 +22,7 @@ const URL1 = 'http://localhost:80/inscript-enspd/api/';
 
 // service for update student
 export const update = async (data) => {
-  let res , err = null ;
+  let res , err = null ; 
                      await axios (URL1,
                                   {
                                     method : 'PUT',
@@ -32,7 +32,7 @@ export const update = async (data) => {
                                             },
                                     data,
                                     params : { route: 'update' }
-                                  }).then(result => { res = result.data; console.log(res)})
+                                  }).then(result => { res = result.data; })
                                     .catch(error => { err = error })
     return [res,err] ;
    

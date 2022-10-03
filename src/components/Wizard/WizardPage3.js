@@ -72,7 +72,7 @@ const WizardPage3= () => {
                    placeholder='AAAA'
                    max='2022' 
                    min='1996'
-                   validate={ required }
+                   validate={  required }
                 />
           <Error name="anneeDip" />
         </div>

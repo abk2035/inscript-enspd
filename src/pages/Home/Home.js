@@ -42,15 +42,13 @@ const DownloadStep = ({  click }) => {
   )
 }
 
-const Log = ({ click1, click2 }) => {
+const Log = ({ click }) => {
   const[num,setNum] = useState('');
   const[errorNum, setErrorNum] = useState(false);
   const[error,setError] = useState(false);
-  const[form,setForm] = useState('form1');
-
-  const validate1 = async (e) =>{
+  
+    const validate = async (e) =>{
       e.preventDefault();
-      console.log('validate1....: '+num)
       if(!num){
         setError(true);
       }else{
@@ -59,25 +57,7 @@ const Log = ({ click1, click2 }) => {
          if(res){
           if(res.error) setErrorNum(true);
           else {
-            click1(res.uid);
-          }
-         }
-      }
-    }
-
-    const validate2 = async (e) =>{
-      e.preventDefault();
-      console.log('validate2....: '+num)
-      if(!num){
-        setError(true);
-      }else{
-         let[res,err] = await register(num);
-         if(err) console.log(err);
-         if(res){
-          if(res.error) setErrorNum(true);
-          else {
-            console.log(res.etudiant)
-            click2(res.etudiant);
+            click(res.etudiant);
           }
          }
       }
@@ -85,42 +65,30 @@ const Log = ({ click1, click2 }) => {
 
 
   return(
-    <div className='log-content'>
-        <div>
-          {form ==='form1'&&
-          (<form action="" onSubmit={ validate1 }>
-            <div>
-               <label>N<sup>o</sup> d'enregistrement</label>
-               <input type='text' name='numInsc' id='num' 
-                 onChange={(e) => setNum(e.target.value)} 
-                 onFocus={() => { setError(false); setErrorNum(false) }}/>
-               <div className={error ? 'text-danger':'d-none'}>
-                veuillez entrer un numero
-               </div>
-               <div className={errorNum ? 'text-danger':'d-none'}>
-                 numero inconnu
-               </div>
-               <p className='' onClick={()=>setForm('form2')}>je veux modifier mes informations</p>
-            </div>
-            <input type='submit' value="s'inscrire" />
-          </form>)}
-          {form ==='form2'&&
-           (<form action="" onSubmit={ validate2 }>
-                <div>
-                  <label>N<sup>o</sup> d'enregistrement</label>
-                  <input type='text' name='numInsc' id='num' 
-                  onChange={(e)=>setNum(e.target.value)} 
-                  onFocus={() => { setError(false); setErrorNum(false) }}/>
-                  <div className={error ? 'text-danger':'d-none'}>
-                    veuillez entrer un numero
+  <div className='log-container'>
+      <div className='log-title'>
+        <img src='./image/attention.png' alt='attention' width='40px' height='40px' />
+         <div >
+            vous devez entrer votre numéro d'enregistrement reçut lors de l'inscription au concours,
+            <br/> pour tirer votre fiche d'inscription ou modifier vos informations.
+         </div>
+      </div>
+      <div className='log-content'>
+              <form action="" onSubmit={ validate }>
+                  <div>
+                    <label>N<sup>o</sup> d'enregistrement</label>
+                    <input type='text' name='numInsc' id='num' 
+                    onChange={(e)=>setNum(e.target.value)} 
+                    onFocus={() => { setError(false); setErrorNum(false) }}/>
+                    <div className={error ? 'error':'d-none'}>
+                      veuillez entrer un numero
+                    </div>
+                    <div className={errorNum ? 'error':'d-none'}>
+                      numero inconnu
+                    </div>
                   </div>
-                  <div className={errorNum ? 'text-danger':'d-none'}>
-                    numero inconnu
-                  </div>
-                  <p className='cursor-pointer' onClick={()=>setForm('form1')}>je veux m'inscrire</p>
-                </div>
-                <input type='submit' value="modifier" />
-           </form>)}
+                  <input type='submit' value="s'inscrire" style={ {borderRadius:'7px',display:'flex',alignItems:'center'} } />
+              </form>
         </div>
     </div>
   )
@@ -128,8 +96,8 @@ const Log = ({ click1, click2 }) => {
 
 
 const Home = () => {
-  const [step, setStep] = useState('log');
-  const [uid, setUid] = useState(11);
+  const [step, setStep] = useState('step1');
+  const [uid, setUid] = useState(null);
   const [loader,setLoader] = useState(false);
   const [initialValues,setInitialValues]=useState({});
 
@@ -139,12 +107,11 @@ const Home = () => {
 
   const handleUid = (id) =>{
      setUid(id) ;
-     console.log("ha...: "+id)
      setStep('download');
    }
 
    const handleUpdate= (data) => {
-       setInitialValues(data)
+       setInitialValues(data);
        setStep('wizard');
    }
 
@@ -158,13 +125,10 @@ const Home = () => {
 
   const handleStep = (stage) => {
     switch (stage) {
-      case 'step1' : return (<Step1 click={ () => sleep(() => setStep('wizard')) }/> )
+      case 'step1' : return (<Step1 click={ () => sleep(() => setStep('log')) }/> )
       case 'wizard' : return ( <Wizard click={(id) => sleep(() => handleUid(id) )}  values={initialValues}/> )
       case 'download' : return (<DownloadStep click={()=>sleep( () => downloadFile(uid) )} />)
-      case 'log':return(<Log 
-                         click1={(id) => sleep(() => handleUid(id))}
-                         click2={(data) => sleep( () => handleUpdate(data))}/>
-                        ) 
+      case 'log':return( <Log  click={(data) => sleep( () => handleUpdate(data))} /> ) 
       default :
     }
   }

@@ -10,7 +10,6 @@ import { update } from '../../services/services';
 
 const index = ({ click ,values}) => {
   const onSubmit = async values => {
-    console.log(values);
        let[res,err] = await update(values);
        if(err) console.log(err);
        if(res) click(res.uid);;

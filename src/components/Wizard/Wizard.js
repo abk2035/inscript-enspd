@@ -15,7 +15,7 @@ class Wizard extends React.Component {
      constructor( props ) {
         super( props )
         this.state = {
-                page: 2,
+                page: 0,
                 values: props.initialValues || {}
         }
       }

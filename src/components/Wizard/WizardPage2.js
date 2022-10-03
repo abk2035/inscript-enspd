@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Field } from 'react-final-form';
 import Wizard from './Wizard';
 import { required } from '../../Utils';
@@ -7,16 +7,6 @@ import Error from '../Form/Error';
 
 
 const WizardPage2= () => {
-  const [nomMere,setNomMere] = useState();
-
-  const requiredMere = value => { 
-    if(value) setNomMere(true);
-    else return undefined ;
-  };
-
-useEffect(() => {
-  setNomMere(false)
-},[])
 
   return (
     <Wizard.Page>
@@ -39,7 +29,7 @@ useEffect(() => {
             component="input"
             type="text"
             placeholder="Profession du père ou du tuteur"
-            validate={ required }
+            validate={  required }
           />
           <Error name="profPere" />
         </div>
@@ -50,19 +40,18 @@ useEffect(() => {
             component="input"
             type="text"
             placeholder="nom de la mère"
-            validate={ requiredMere }
+            validate={ undefined }
           />
         </div>
         <div>
           <label>Profession de la mère :</label>
           <Field
-            name={"profMere"}
+            name="profMere"
             component="input"
             type="text"
             placeholder="Profession de la mère"
-            validate={ required }
+            validate={ undefined }
           />
-          { nomMere && <Error name="profMere" /> }
         </div>
         <div>
           <label>Adresse des Parents ou du Tuteur :</label>
@@ -79,13 +68,13 @@ useEffect(() => {
                 <label className='me-2'>Parent(s) Handicapé(s) ? :</label>
                 <div >
                     <label className='me-2 '>
-                        <Field name="parentH" component="input" type="radio" value="true" validate={ required }/>
+                        <Field name="parentH" component="input" type="radio" value="true" validate={  required }/>
                         {' '}
                         Oui
                         
                     </label>
                     <label>
-                        <Field name="parentH" component="input" type="radio" value="false" validate={ required }/>
+                        <Field name="parentH" component="input" type="radio" value="false" validate={  required }/>
                         {' '}
                         Non
                     </label>

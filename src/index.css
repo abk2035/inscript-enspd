@@ -30,12 +30,14 @@ input[type="submit"] {
   transition: 0.5s;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 5px ;
   border: 1px solid var(--base-blue);
-  width: 100px;
+  width: 120px;
   height: 30px;
 }
 
+input[type="submit"]:hover,
 button:hover {
   background-color: var(--base-background);
   color: white;
